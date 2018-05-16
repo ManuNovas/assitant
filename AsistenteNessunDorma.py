@@ -50,9 +50,27 @@ class AsistenteNessunDorma:
 		print 'Consulta generada'
 		archivo_salida.close( )
 
+	def genera_consulta_centros(self, entrada):
+		archivo_entrada = open(entrada, 'r')
+		archivo_salida = open('SQL/centros_comerciales_nd.sql', 'w')
+
+		for linea in archivo_entrada.readlines( ):
+			campos = linea.split('|')
+			consulta = campos[0]
+			consulta = consulta.replace("}EFK{", campos[1])
+			consulta = consulta.replace("}MFK{", campos[2])
+			consulta = consulta.replace("}VM2{", campos[4])
+			consulta = consulta.replace("}INC{", campos[5])
+			consulta = consulta.replace("}ASO{", campos[6])
+			archivo_salida.write(consulta + ';\n')
+			pass
+
+		archivo_entrada.close( )
+		archivo_salida.close( )
+
 asistente = AsistenteNessunDorma( )
 
-opcion = input('Selecciona una opcion:\n\t1. Generar consulta de estados\n\t2. Generar consulta de municipios\n\t3. Generar consulta para simular centros comerciales\n')
+opcion = input('Selecciona una opcion:\n\t1. Generar consulta de estados\n\t2. Generar consulta de municipios\n\t3. Generar consulta para simular centros comerciales\n\t4. Obtener consulta para actualizar centros comerciales\n')
 	
 if opcion == 1:
 	nombre = raw_input('Escribe el nombre del archivo de entrada: ')
@@ -64,4 +82,8 @@ elif opcion == 2:
 	pass
 elif opcion == 3:
 	asistente.simula_centro_comercial_estados( )
+	pass
+elif opcion == 4:
+	nombre = raw_input('Escribe el nombre del archivo de entrada: ')
+	asistente.genera_consulta_centros(nombre)
 	pass
