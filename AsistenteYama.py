@@ -43,7 +43,7 @@ class AsistenteYama:
 
 				}
 
-				consulta = "SELECT GALERIA_AVANCE_ID FROM GALERIA_AVANCE WHERE MICROSITIO_FK = 1 AND PERIODO_TRIMESTRAL_FK = " + str(meses[mes]) + " AND AÑO = " + anio
+				consulta = "SELECT GALERIA_AVANCE_ID FROM GALERIA_AVANCE WHERE MICROSITIO_FK = 4 AND PERIODO_TRIMESTRAL_FK = " + str(meses[mes]) + " AND AÑO = " + anio
 				cursor.execute(consulta)
 				galeria_avance_id = cursor.fetchone( )
 				if galeria_avance_id is None:
