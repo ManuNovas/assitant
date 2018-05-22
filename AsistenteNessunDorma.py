@@ -62,7 +62,26 @@ class AsistenteNessunDorma:
 			consulta = consulta.replace("}VM2{", campos[4])
 			consulta = consulta.replace("}INC{", campos[5])
 			consulta = consulta.replace("}ASO{", campos[6])
+			consulta = consulta.replace("}NOM{", campos[3])
 			archivo_salida.write(consulta + ';\n')
+			pass
+
+		archivo_entrada.close( )
+		archivo_salida.close( )
+
+	def actualiza_municipios(self):
+		archivo_entrada = open('SQL/incidencia_municipios.sql', 'r')
+		archivo_salida = open('SQL/actualiza_municipios_nd.sql', 'w')
+
+		for linea in archivo_entrada.readlines( ):
+			campos = linea.split('|')
+			consulta = campos[0]
+			consulta = consulta.replace("}ID{", campos[1])
+			consulta = consulta.replace("}ZFK{", campos[2])
+			consulta = consulta.replace("}VM2{", campos[5])
+			consulta = consulta.replace("}INC{", campos[6])
+			consulta = consulta.replace("}NOM{", campos[4])
+			archivo_salida.write(consulta + '\n')
 			pass
 
 		archivo_entrada.close( )
@@ -70,7 +89,7 @@ class AsistenteNessunDorma:
 
 asistente = AsistenteNessunDorma( )
 
-opcion = input('Selecciona una opcion:\n\t1. Generar consulta de estados\n\t2. Generar consulta de municipios\n\t3. Generar consulta para simular centros comerciales\n\t4. Obtener consulta para actualizar centros comerciales\n')
+opcion = input('Selecciona una opcion:\n\t1. Generar consulta de estados\n\t2. Generar consulta de municipios\n\t3. Generar consulta para simular centros comerciales\n\t4. Obtener consulta para actualizar centros comerciales\n\t5. Actualiza municipios\n')
 	
 if opcion == 1:
 	nombre = raw_input('Escribe el nombre del archivo de entrada: ')
@@ -86,4 +105,7 @@ elif opcion == 3:
 elif opcion == 4:
 	nombre = raw_input('Escribe el nombre del archivo de entrada: ')
 	asistente.genera_consulta_centros(nombre)
+	pass
+elif opcion == 5:
+	asistente.actualiza_municipios( )
 	pass
