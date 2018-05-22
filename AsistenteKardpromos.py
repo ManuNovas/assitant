@@ -15,8 +15,16 @@ class AsistenteKardpromos:
 		tarjetas = cursor.fetchall( )
 
 		for cve_tarjeta in tarjetas:
-			consulta = 'INSERT INTO TBL_REG_TARS(CVE_REG, CVE_TARJETA) VALUES(' + str(cve_tarjeta) + ', ' + str(usuario) + ')'
-			archivo_salida.write(consulta)
+			clave = cve_tarjeta[0]
+
+			consulta = 'SELECT CVE_REG FROM TBL_REG_TARS WHERE CVE_REG = ' + usuario + ' AND CVE_TARJETA = ' + str(clave)
+			cursor.execute(consulta)
+			registro = cursor.fetchone( )
+
+			if registro is None:
+				consulta = 'INSERT INTO TBL_REG_TARS(CVE_TARJETA, CVE_REG) VALUES(' + str(clave) + ', ' + str(usuario) + ');\n'
+				archivo_salida.write(consulta)
+				pass
 			pass
 
 		archivo_salida.close( )
@@ -25,16 +33,16 @@ asistente = AsistenteKardpromos( )
 
 opcion = input('Selecciona una opcion:\n\t1. Asignar todas las tarjetas a usuario\n\t')
 	
-usuario = raw_input('Escribe el usuario de la base: ')
-password = raw_input('Escribe el password de ' + usuario + ': ')
-servidor = raw_input('Escribe el servidor de la base: ')
-base_datos = raw_input('Escribe el nombre de la base: ')
+usuario = input('Escribe el usuario de la base: ')
+password = input('Escribe el password de ' + usuario + ': ')
+servidor = input('Escribe el servidor de la base: ')
+base_datos = input('Escribe el nombre de la base: ')
 asistente.abre_conexion(usuario, password, servidor, base_datos)
 
 if asistente.conexion:
 	if opcion == '1':
-		id_usuario = raw_input('Escribe el id del usuario: ')
-		asistente.selecciona_todas_tarjetas_usuario(usuario)
+		id_usuario = input('Escribe el id del usuario: ')
+		asistente.selecciona_todas_tarjetas_usuario(id_usuario)
 		pass
 	pass
 else:
