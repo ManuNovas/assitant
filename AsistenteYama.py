@@ -7,9 +7,11 @@ class AsistenteYama:
 	def abre_conexion(self, usuario, password, servidor, base_datos):
 		self.conexion = mysql.connector.connect(user = usuario, password = password, host = servidor, database = base_datos)
 
-	def genera_imagenes_galeria(self, entrada):
+	def genera_imagenes_galeria(self, entrada, micrositio_id):
 		entrada = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\' + archivo_entrada, 'r', encoding = 'UTF-8')
 		salida = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\imagenes_yama.sql', "w", encoding = 'UTF-8')
+		#entrada = open('/home/mane/Documentos/Codice/Yama/' + archivo_entrada, 'r', encoding = 'UTF-8')
+		#salida = open('/home/mane/Documentos/Codice/Yama/imagenes_yama.sql', "w", encoding = 'UTF-8')
 		cursor = self.conexion.cursor( )
 
 		i = 0
@@ -43,7 +45,8 @@ class AsistenteYama:
 
 				}
 
-				consulta = "SELECT GALERIA_AVANCE_ID FROM GALERIA_AVANCE WHERE MICROSITIO_FK = 4 AND PERIODO_TRIMESTRAL_FK = " + str(meses[mes]) + " AND AÑO = " + anio
+				consulta = "SELECT GALERIA_AVANCE_ID FROM GALERIA_AVANCE WHERE MICROSITIO_FK = " + str(micrositio_id) + " AND PERIODO_TRIMESTRAL_FK = " + str(meses[mes]) + " AND AÑO = " + str(anio)
+				print(consulta)
 				cursor.execute(consulta)
 				galeria_avance_id = cursor.fetchone( )
 				if galeria_avance_id is None:
@@ -76,7 +79,8 @@ asistente.abre_conexion(usuario, password, servidor, base_datos)
 if asistente.conexion:
 	if opcion == '1':
 		archivo_entrada = input('Escribe el nombre del archivo de entrada: ')
-		asistente.genera_imagenes_galeria(archivo_entrada)
+		micrositio_id = input('Escribe el id del micrositio: ')
+		asistente.genera_imagenes_galeria(archivo_entrada, micrositio_id)
 		pass
 	pass
 else:
