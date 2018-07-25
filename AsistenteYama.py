@@ -8,19 +8,19 @@ class AsistenteYama:
 		self.conexion = mysql.connector.connect(user = usuario, password = password, host = servidor, database = base_datos)
 
 	def genera_imagenes_galeria(self, entrada, micrositio_id):
-		#entrada = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\' + archivo_entrada, 'r', encoding = 'UTF-8')
-		#salida = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\imagenes_yama.sql', "w", encoding = 'UTF-8')
-		entrada = open('/home/mane/Documentos/Codice/Yama/' + archivo_entrada, 'r', encoding = 'UTF-8')
-		salida = open('/home/mane/Documentos/Codice/Yama/imagenes_yama.sql', "w", encoding = 'UTF-8')
+		entrada = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\' + archivo_entrada, 'r', encoding = 'UTF-8')
+		salida = open('C:\\Users\\Franco\\Documents\\Documentación\\Yama\\imagenes_yama.sql', "w", encoding = 'UTF-8')
+		#entrada = open('/home/mane/Documentos/Codice/Yama/' + archivo_entrada, 'r', encoding = 'UTF-8')
+		#salida = open('/home/mane/Documentos/Codice/Yama/imagenes_yama.sql', "w", encoding = 'UTF-8')
 		cursor = self.conexion.cursor( )
 
 		i = 0
 		for linea in entrada.readlines( ):
 			if i != 0:
 				campos = linea.split(',')
-				anio = str(campos[1])
-				mes = campos[2]
-				imagen = campos[3]
+				anio = str(campos[0])
+				mes = campos[1]
+				imagen = campos[2]
 
 				meses = {
 					'Enero': 1,
