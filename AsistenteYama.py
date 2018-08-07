@@ -53,7 +53,7 @@ class AsistenteYama:
 					pass
 				else:
 					galeria_avance_id = galeria_avance_id[0]
-					consulta = "INSERT INTO IMAGEN_GALERIA(GALERIA_AVANCE_FK, ENLACE, STATUS) VALUES(" + str(galeria_avance_id) + ", '" + anio + "/" + str(periodos[meses[mes]]) + "/" + mes.upper( ) + "/" +  imagen + "', 1);\n"
+					consulta = "INSERT INTO IMAGEN_GALERIA(GALERIA_AVANCE_FK, ENLACE, STATUS) VALUES(" + str(galeria_avance_id) + ", '" + anio + "/" + str(periodos[meses[mes]]) + "/" + mes.upper( ) + "/" +  imagen + ".jpg', 1);\n"
 					salida.write(consulta)
 					pass
 
